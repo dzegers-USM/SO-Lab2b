@@ -12,16 +12,23 @@
 **********/
 
 void viewCard(Card card) {
-    printf("Tipo: %d, Color: %s\n", card.type, colorStr[card.color]);
+    if (card.type < 10) {
+        printf("Tipo: %d, Color: %s\n", card.type, colorStr[card.color]);
+    }
+    else {
+        printf("Tipo: %s, Color: %s\n", typeStr[card.type - 10],
+                                        colorStr[card.color]);
+    }
+    return;
 }
 
 int cardPlayable(Card last, Card card) {
-    return (card.color == last.color);
+    return (card.color == last.color) ? 1 : 0;
 }
 
 void getPlayable(List *validCards, Deck *hand, Card lastCard) {
     for (int i = 0; i <= hand->top; i++) {
-        if (hand->cards[i].color == lastCard.color) {
+        if (cardPlayable(lastCard, hand->cards[i])) {
             append(validCards, i);
         }
     }

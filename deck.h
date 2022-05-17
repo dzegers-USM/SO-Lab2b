@@ -28,6 +28,8 @@ typedef struct {
 #define WILD 13
 #define SKIP 14
 
+static const char *typeStr[] = {"Reverso", "+2 Cartas", "+4 Cartas",
+                                "Cambio de Color", "Salto de Turno"};
 static const char *colorStr[] = {"Rojo", "Azul", "Amarillo", "Verde"};
 
 /**

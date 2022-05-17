@@ -30,7 +30,6 @@ int main() {
         cPid = fork();
         if (cPid == 0) {
             id = i;
-            printf("Init %d\n", id);
             break;
         }
         else {
@@ -87,8 +86,6 @@ int main() {
             if (!skipTurn) {
                 /* Pre-jugada *
                 ***************/
-                printf("Pre-jugada\n");
-
                 while (read(c2p[2*next], &cardNo, sizeof(int)) < 0) {};
                 if (cardNo == 0) {
                     pDealCard(p2c[2*next + 1], &p2cIn[next], deck, 1);
@@ -97,16 +94,14 @@ int main() {
                 else {
                     /* Jugada *
                     ***********/
-                    printf("Jugada\n");
-
                     while(read(c2p[2*next], &lastCard, sizeof(Card)) < 0) {};
+                    printf("Carta jugada: ");
+                    viewCard(lastCard);
                     push(pile, lastCard);
                     cardsInHand[next]--;
 
                     /* Pos-jugada *
                     ***************/
-                    printf("Pos-jugada\n");
-
                     switch (lastCard.type) {
                     case REVERSE:
                         turnOrder = -turnOrder;
@@ -122,8 +117,6 @@ int main() {
 
                     /* Pos-turno *
                     **************/
-                    printf("Pos-turno\n");
-
                     if (cardsInHand[next] == 1) {
                         go = 0;
                         for (int i = 0; i < 4; i++) {
@@ -137,7 +130,7 @@ int main() {
                         case 1:
                         case 2:
                         case 3:
-                            printf("Ganador: jugador %d\n", next);
+                            printf("Ganador: jugador %d\n", next + 1);
                             break;
                         default:
                             break;
@@ -149,7 +142,6 @@ int main() {
             }
 
             nextTurn(&next, turnOrder);
-            printf("Next player: %d\n", next);
         }
     }
     else {
@@ -165,8 +157,6 @@ int main() {
 
             /* Pre-turno *
             **************/
-            printf("Pre-turno jugador %d\n", id);
-
             switch (lastCard.type) {
             case DRAW_2:
             case WILD_DRAW_4:
@@ -183,8 +173,6 @@ int main() {
             if (!skipTurn) {
                 /* Pre-jugada *
                 ***************/
-                printf("Pre-jugada jugador %d\n", id);
-
                 getPlayable(validCards, hand, lastCard);
                 cardNo = validCards->top + 1;
                 cWriteInt(c2p[2*id + 1], &c2pIn[id], &cardNo);
@@ -194,18 +182,18 @@ int main() {
                 else {
                     /* Jugada *
                     ***********/
-                    printf("Jugada jugador %d\n", id);
-
                     if (id == 0) {
                         printf("Escoja el numero de su carta deseada.\n");
                         for (int i = 0; i <= validCards->top; i++) {
                             printf("%d. ", i);
-                            viewCard(hand->cards[i]);
+                            viewCard(hand->cards[validCards->arr[i]]);
                         }
                         scanf("%d", &playPos);
+                        playPos = validCards->arr[playPos];
                     }
                     else {
                         playPos = randInt(0, validCards->top);
+                        playPos = validCards->arr[playPos];
                     }
                     lastCard = hand->cards[playPos];
                     cPlayCard(c2p[2*id + 1], &c2pIn[id], hand, playPos);
@@ -213,14 +201,10 @@ int main() {
 
                     /* Pos-jugada *
                     ***************/
-                    printf("Pos-jugada jugador %d\n", id);
-
                     switch (lastCard.type) {
                     case WILD:
                     case WILD_DRAW_4:
                         if (id == 0) {
-                            // TODO: Menu
-                            // newColor = ...
                             newColor = randInt(0, 4);
                             cWriteInt(c2p[2*id + 1], &c2pIn[id], &newColor);
                         }
@@ -235,7 +219,6 @@ int main() {
 
                     /* Pos-turno *
                     **************/
-                    printf("Pos-turno jugador %d\n", id);
                     // No hay accion necesaria
                 }
             }
