@@ -1,0 +1,7 @@
+# VSCode Settings #
+###################
+.vscode/*
+
+# Compiled Source #
+###################
+*.elf
