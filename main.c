@@ -205,13 +205,17 @@ int main() {
                     case WILD:
                     case WILD_DRAW_4:
                         if (id == 0) {
-                            newColor = randInt(0, 4);
-                            cWriteInt(c2p[2*id + 1], &c2pIn[id], &newColor);
+                            printf("Escoja el numero de su color deseado:\n");
+                            for (int i = 0; i < 4; i++) {
+                                printf("%d. %s\n", i, colorStr[i]);
+                            }
+                            scanf("%d", &newColor);
+                            break;
                         }
                         else {
                             newColor = randInt(0, 4);
-                            cWriteInt(c2p[2*id + 1], &c2pIn[id], &newColor);
                         }
+                        cWriteInt(c2p[2*id + 1], &c2pIn[id], &newColor);
                         break;
                     default:
                         break;
