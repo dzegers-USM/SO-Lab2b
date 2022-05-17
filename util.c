@@ -37,6 +37,12 @@ void clearList(List *list) {
     return;
 }
 
+void destroyList(List* list) {
+    free(list->arr);
+    free(list);
+    return;
+}
+
 void cWriteInt(int c2p, struct pollfd *c2pIn, int *iptr) {
     while (write(c2p, iptr, sizeof(int)) < 0 ) {};
     while (poll(c2pIn, 1, 32) == 0) {};

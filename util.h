@@ -39,7 +39,7 @@ void shuffle(void *base, size_t nmemb, size_t size);
  */
 int randInt(int min, int max);
 
-// Stack en disfraz
+// Stack en disfraz :^)
 typedef struct {
     int *arr;
     int size;
@@ -76,6 +76,15 @@ void append(List *list, int num);
 void clearList(List *list);
 
 /**
+ * void destroyList
+ * 
+ * List *list
+ * 
+ * Desaloca la memoria heap dedicada a list
+ */
+void destroyList(List* list);
+
+/**
  * void cWriteInt
  * 
  * int c2p: pipe child->parent
@@ -83,8 +92,8 @@ void clearList(List *list);
  *  de c2p
  * int iptr: direccion de memoria de int a escribir
  * 
- * Escribe un int a padre y espera a que este haya sido leido antes de
- * retornar
+ * Escribe un int a c2p.
+ * Espera a que este haya sido leido antes de retornar.
  */
 void cWriteInt(int c2p, struct pollfd *c2pIn, int *iptr);
 
