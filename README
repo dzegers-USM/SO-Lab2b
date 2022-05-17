@@ -1,0 +1,38 @@
+Daniel Zegers
+ROL 201973551-9
+Par. 200
+
+Benjamin Soto
+ROL 201973522-5
+Par. 200
+
+Archivos incluidos:
+README
+makefile
+main.c (Juego)
+deck.h
+deck.c (Implementa Card, Mazo, funciones varias de juego y comunicación inter-proceso)
+util.h
+util.c (Implementa List, funciones varias de utilidad y comunicacion inter-proceso)
+
+
+Reglas:
+Se siguen por lo general las reglas especificadas. En el caso de que se juegue una carta que resulte en un salto de turno
+(+2 Cartas, +4 Cartas, Salto de Turno), esta se considerará como un '1' (en vez del tipo especial de la carta) para el
+jugador que venga despues de aquel que se saltó.
+
+Cartas especiales:
+Hay 10 cartas especiales, separadas por color:
+Rojo: Reverso, +4 Cartas                                (2)
+Azul: Reverso, +4 Cartas                                (2)
+Amarillo: +2 Cartas, Cambio de Color, Salto de Turno    (3)
+Verde: +2 Cartas, Cambio de Color, Salto de Turno       (3)
+                                                        (10)
+
+Para 40 cartas de color regulares (0-9 para los cuatro colores), suman 50 cartas en un mazo.
+
+Compilación:
+Utilizar makefile incluido ('make').
+
+Uso:
+Ingresar el número deseado por consola según se le indique por pantalla.
